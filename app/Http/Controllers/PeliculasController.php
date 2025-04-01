@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Clasificaciones;
 use App\Models\Generos;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PeliculasController extends Controller
 {
@@ -118,5 +119,16 @@ class PeliculasController extends Controller
         $pelicula->delete();
         return redirect()->route('peliculas.index')->with('success', 'Película eliminada con éxito.');
     
+    }
+
+//funcion para listar todas las peliculas
+
+    public function peliculasall(){
+        //variable para recibir las pelicuas
+        $peliculas=DB::table('peliculas')->join('generos','peliculas.genero_id','generos.id')
+        ->join('clasificaciones','peliculas.clasificacion_id','clasificaciones.id')
+        ->select('peliculas.*','generos.nombre as genero','clasificaciones.nombre as clasificacion')->get();
+//retornar la vista
+        return view('peliculaslistas',compact('peliculas'));
     }
 }

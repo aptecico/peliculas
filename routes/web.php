@@ -21,6 +21,8 @@ Route::middleware('auth')->group(function () {
     Route::resource('generos', GenerosController::class);
     Route::resource('clasificaciones', ClasificacionesController::class);
     Route::resource('peliculas', PeliculasController::class);
+
+    Route::get('peliculasall',[PeliculasController::class,'peliculasall']);
 });
 
 require __DIR__.'/auth.php';
