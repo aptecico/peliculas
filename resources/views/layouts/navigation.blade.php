@@ -16,6 +16,24 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
                 </div>
+                <!-- Menu de peliculas-->
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('peliculas.index')" :active="request()->routeIs('peliculas.index')">
+                        {{ __('Peliculas') }}
+                    </x-nav-link>
+                </div>
+                <!-- Menu de Generos-->
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('generos.index')" :active="request()->routeIs('generos.index')">
+                        {{ __('Generos') }}
+                    </x-nav-link>
+                </div>
+                <!-- Menu de Clasificaciones-->
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('clasificaciones.index')" :active="request()->routeIs('clasificaciones.index')">
+                        {{ __('Clasificaciones') }}
+                    </x-nav-link>
+                </div>
             </div>
 
             <!-- Settings Dropdown -->

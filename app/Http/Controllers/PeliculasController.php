@@ -16,7 +16,10 @@ class PeliculasController extends Controller
      */
     public function index()
     {
-        $peliculas = Peliculas::with(['genero', 'clasificacion'])->get();
+        $peliculas = Peliculas::with(['genero', 'clasificacion'])
+        ->paginate(5); //consulta todos los datos pero muestrs
+        //segun el parametro enviado
+        //->get(); //consulta todos los datos
         return view('peliculas.index', compact('peliculas'));
     }
 
@@ -130,5 +133,17 @@ class PeliculasController extends Controller
         ->select('peliculas.*','generos.nombre as genero','clasificaciones.nombre as clasificacion')->get();
 //retornar la vista
         return view('peliculaslistas',compact('peliculas'));
+    }
+
+    public function peliculasalldesc($id){
+        //variable para recibir las pelicuas
+        $pelicula=DB::table('peliculas')->join('generos','peliculas.genero_id','generos.id')
+        ->join('clasificaciones','peliculas.clasificacion_id','clasificaciones.id')
+        ->select('peliculas.*','generos.nombre as genero','clasificaciones.nombre as clasificacion')
+        ->where('peliculas.id',$id)->first();
+//retornar la vista
+
+       
+        return view('dashboardpeliculas',compact('pelicula'));
     }
 }

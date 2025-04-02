@@ -23,6 +23,8 @@ Route::middleware('auth')->group(function () {
     Route::resource('peliculas', PeliculasController::class);
 
     Route::get('peliculasall',[PeliculasController::class,'peliculasall']);
+    Route::get('peliculasalldesc/{id}',[PeliculasController::class,'peliculasalldesc']);
+    
 });
 
 require __DIR__.'/auth.php';

@@ -42,5 +42,8 @@
             @endforeach
         </tbody>
     </table>
+    <div class="pagination-wrapper"> 
+        {!! $peliculas->appends(['search' => Request::get('search')])->render() !!} 
+    </div>
 </div>
 @endsection
