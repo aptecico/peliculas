@@ -24,3 +24,64 @@
         </div>
     </div>
 @endsection
+
+@section('scripts')
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Obtener el elemento de entrada de archivo
+    const inputFile = document.getElementById('ruta');
+    const imageContainer = document.querySelector('.col-xs-12.col-md-5');
+    const imgElement = imageContainer.querySelector('img');
+    
+    // Crear el botón de eliminar y ocultarlo inicialmente
+    const deleteButton = document.createElement('button');
+    deleteButton.innerHTML = '✖';
+    deleteButton.className = 'delete-btn btn btn-danger btn-sm position-absolute';
+    deleteButton.style.cssText = 'top: 10px; right: 10px; display: none; z-index: 10;';
+    
+    // Añadir el botón al contenedor de la imagen
+    imageContainer.style.position = 'relative';
+    imageContainer.appendChild(deleteButton);
+    
+    // Función para mostrar la imagen
+    function displayImage(src) {
+        imgElement.src = src;
+        deleteButton.style.display = 'block';
+    }
+    
+    // Función para eliminar la imagen
+    function removeImage() {
+        imgElement.src = ''; // Limpiar la fuente de la imagen
+        inputFile.value = ''; // Limpiar el input file
+        deleteButton.style.display = 'none'; // Ocultar el botón
+    }
+    
+    // Evento para cuando se selecciona un archivo
+    inputFile.addEventListener('change', function() {
+        if (this.files && this.files[0]) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                displayImage(e.target.result);
+            };
+            reader.readAsDataURL(this.files[0]);
+        }
+    });
+    
+    // Evento para el botón de eliminar
+    deleteButton.addEventListener('click', function(e) {
+        e.preventDefault(); // Prevenir comportamiento por defecto
+        removeImage();
+    });
+    
+    // Mostrar el botón si ya hay una imagen al cargar la página
+    if (imgElement.src && imgElement.src !== window.location.href) {
+        deleteButton.style.display = 'block';
+    }
+});
+
+function CargarImagen(){
+    alert('Hola como estas desde la funcion');
+}
+    
+</script>
+@endsection
